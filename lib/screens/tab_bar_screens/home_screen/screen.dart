@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty/blocs/get_list_persons_blocs.dart';
 import 'package:rick_and_morty/blocs/person_bloc_models.dart';
 import 'package:rick_and_morty/recources/icons.dart';
+import 'package:rick_and_morty/screens/person_deail_screen/screen.dart';
 import 'package:rick_and_morty/screens/tab_bar_screens/home_screen/bloc/home_screen_bloc.dart';
 import 'package:rick_and_morty/screens/tab_bar_screens/home_screen/home_models/person.dart';
 import 'package:rick_and_morty/screens/tab_bar_screens/home_screen/home_models/person_response.dart';
@@ -158,7 +159,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 24),
                   child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DetailScreen(
+                                      model: persons[index],
+                                    )));
+                      },
                       child: Row(children: [
                         Container(
                             child: CircleAvatar(
@@ -218,38 +226,48 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisCount: 2,
               childAspectRatio: 0.8),
           itemBuilder: (context, index) {
-            return Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    flex: 5,
-                    child: Container(
-                        child: CircleAvatar(
-                      radius: 60,
-                      backgroundImage: NetworkImage(persons[index].image),
-                    )),
-                  ),
-                  Spacer(),
-                  Expanded(
-                    flex: 3,
-                    child: Column(
-                      children: [
-                        Text(
-                            persons[index].status == "Alive"
-                                ? "ЖИВОЙ"
-                                : "МЕРТВЫЙ",
-                            style: persons[index].status == "Alive"
-                                ? TextThemes.statusTextSttleGreen
-                                : TextThemes.statusTextSttleRed),
-                        Text('${persons[index].name}',
-                            style: TextThemes.namePersonTextStyle),
-                        Text(
-                            '${persons[index].species == "Human" ? "Человек" : "Животное"}, ${persons[index].gender == "Male" ? "Мужчина" : "Женщина"}',
-                            style: TextThemes.genderPersonTextStyle),
-                      ],
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => DetailScreen(
+                              model: persons[index],
+                            )));
+              },
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      flex: 5,
+                      child: Container(
+                          child: CircleAvatar(
+                        radius: 60,
+                        backgroundImage: NetworkImage(persons[index].image),
+                      )),
                     ),
-                  ),
-                ]);
+                    Spacer(),
+                    Expanded(
+                      flex: 3,
+                      child: Column(
+                        children: [
+                          Text(
+                              persons[index].status == "Alive"
+                                  ? "ЖИВОЙ"
+                                  : "МЕРТВЫЙ",
+                              style: persons[index].status == "Alive"
+                                  ? TextThemes.statusTextSttleGreen
+                                  : TextThemes.statusTextSttleRed),
+                          Text('${persons[index].name}',
+                              style: TextThemes.namePersonTextStyle),
+                          Text(
+                              '${persons[index].species == "Human" ? "Человек" : "Животное"}, ${persons[index].gender == "Male" ? "Мужчина" : "Женщина"}',
+                              style: TextThemes.genderPersonTextStyle),
+                        ],
+                      ),
+                    ),
+                  ]),
+            );
           });
   }
 }

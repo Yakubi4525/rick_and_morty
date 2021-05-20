@@ -8,4 +8,5 @@ class ColorPalette {
   static var white = Color(0xFFFFFFFF);
   static var black = Color(0xFF000000);
   static var red = Color(0xFFEB5757);
+  static var blue = Color(0xFF22A2BD);
 }

@@ -9,6 +9,11 @@ class TextThemes {
       fontSize: 10,
       fontWeight: FontWeight.w500,
       color: ColorPalette.red);
+  static var tittlTextStyle =
+      TextStyle(color: ColorPalette.white, fontSize: 34, height: 40 / 34);
+
+  static var simpleTextStyle = TextStyle(
+      color: ColorPalette.white, fontSize: 13, height: 1.5, letterSpacing: 0.5);
 
   static var statusTextSttleGreen = TextStyle(
       height: 1.6,

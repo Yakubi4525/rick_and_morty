@@ -4,6 +4,12 @@ class Images {
   static String get mortyText => 'assets/images/morty.png';
   static String get morty => 'assets/images/fallin_boy.png';
   static String get rick => 'assets/images/falling_man.png';
-    static String get bg => 'assets/images/bg.png';
+  static String get bg => 'assets/images/bg.png';
 
+  List<String> episodes = [
+    "episod1.png",
+    "episod2.png",
+    "episod3.png",
+  ];
 }
+Images images = Images();

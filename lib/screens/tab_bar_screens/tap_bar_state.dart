@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty/recources/icons.dart';
-import 'package:rick_and_morty/screens/tab_bar_screens/home_screen/home_screen.dart';
+import 'package:rick_and_morty/screens/tab_bar_screens/home_screen/screen.dart';
 import 'package:rick_and_morty/theme/color_theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
