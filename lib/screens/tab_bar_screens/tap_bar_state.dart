@@ -37,7 +37,7 @@ class _TapBarScreenState extends State<TapBarScreen> {
             height: double.infinity,
             width: double.infinity,
             child: Center(
-              child: Text("Трейтий"),
+              child: Text("Четвертый"),
             ),
           )
         ],
@@ -90,9 +90,11 @@ class _TapBarScreenState extends State<TapBarScreen> {
         ],
         currentIndex: screenIdex,
         onTap: (int i) {
-          setState(() {
-            screenIdex = i;
-          });
+          setState(
+            () {
+              screenIdex = i;
+            },
+          );
         },
       ),
     );
