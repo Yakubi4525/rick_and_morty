@@ -14,20 +14,15 @@ class BuildGridWidget extends StatelessWidget {
         color: ColorPalette.darkBlue,
         padding: const EdgeInsets.symmetric(horizontal: 16),
         width: size.width,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              "No more persons",
-              style: TextStyle(color: Colors.black45),
-            ),
-          ],
+        child: Center(
+          child: Text(
+            "No more persons",
+            style: TextStyle(color: Colors.black45),
+          ),
         ),
       );
     } else {
       return Container(
-        height: size.height - 230,
         width: size.width,
         color: ColorPalette.darkBlue,
         padding: const EdgeInsets.symmetric(horizontal: 16),

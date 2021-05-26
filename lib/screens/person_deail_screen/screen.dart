@@ -1,157 +1,97 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty/recources/variables.dart';
+import 'package:rick_and_morty/screens/person_deail_screen/bloc/person_screen_bloc.dart';
 import 'package:rick_and_morty/screens/person_deail_screen/widgets/enter.dart';
 import 'package:rick_and_morty/screens/person_deail_screen/widgets/episode.dart';
+import 'package:rick_and_morty/screens/person_deail_screen/widgets/line_widget.dart';
+import 'package:rick_and_morty/screens/person_deail_screen/widgets/person_about_widget.dart';
+import 'package:rick_and_morty/screens/person_deail_screen/widgets/top_widgets_view.dart';
 import 'package:rick_and_morty/screens/tab_bar_screens/home_screen/home_models/person.dart';
+import 'package:rick_and_morty/components/error_widget.dart';
+import 'package:rick_and_morty/components/loading_widget.dart';
 import 'package:rick_and_morty/theme/color_theme.dart';
 import 'package:rick_and_morty/theme/text_theme.dart';
 
-class DetailScreen extends StatefulWidget {
-  final PersonModel model;
-  const DetailScreen({this.model});
-  @override
-  _DetailScreenState createState() => _DetailScreenState(model: model);
-}
-
-class _DetailScreenState extends State<DetailScreen> {
+class PersonScreen extends StatelessWidget {
   final PersonModel model;
 
-  _DetailScreenState({this.model});
+  const PersonScreen({Key key, this.model}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: Container(
-        child: ListView(padding: EdgeInsets.zero, children: [
-          Stack(
-            children: [
-              Column(
+    return BlocConsumer<PersonScreenBloc, PersonScreenState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        Size size = MediaQuery.of(context).size;
+        return state.maybeMap(
+          initialState: (_) => CustomLoaderWidget(),
+          loadingState: (_) => CustomLoaderWidget(),
+          errorState: (_error) => CustomErrorWidget(error: _error.errorMessage),
+          dataStat: (_data) => Scaffold(
+            body: Container(
+              child: ListView(
+                padding: EdgeInsets.zero,
                 children: [
-                  Container(
-                    height: 218,
-                    width: size.width,
-                    child: FittedBox(
-                      child: Image.network(model.image),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  Container(
-                    width: size.width,
-                    color: ColorPalette.darkBlue,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(height: 90),
-                        Text(model.name, style: TextThemes.tittlTextStyle),
-                        SizedBox(height: 4),
-                        Text(model.status == "Alive" ? "ЖИВОЙ" : "МЕРТВЫЙ",
-                            style: model.status == "Alive"
-                                ? TextThemes.statusTextSttleGreen
-                                : TextThemes.statusTextSttleRed),
-                        SizedBox(height: 36),
-                        Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                  Stack(
+                    children: [
+                      Column(
+                        children: [
+                          Container(
+                            height: 218,
+                            width: size.width,
+                            child: FittedBox(
+                              child: Image.network(model.image),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Container(
+                            width: size.width,
+                            height: 218,
+                            color: ColorPalette.greyColor_1.withOpacity(0.65),
+                          ),
+                          Container(
+                            width: size.width,
+                            color: ColorPalette.darkBlue,
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text(Variables.personAboutText,
-                                    style: TextThemes.simpleTextStyle),
-                                SizedBox(height: 24),
-                                Row(children: [
-                                  Expanded(
-                                      child: Text("Пол",
-                                          style: TextThemes
-                                              .genderPersonTextStyle)),
-                                  Expanded(
-                                      child: Text("Расса",
-                                          style:
-                                              TextThemes.genderPersonTextStyle))
-                                ]),
-                                SizedBox(height: 4),
-                                Row(children: [
-                                  Expanded(
-                                      child: Text(
-                                          model.gender == "Male"
-                                              ? "Мужчина"
-                                              : "Женщина",
-                                          style:
-                                              TextThemes.namePersonTextStyle)),
-                                  Expanded(
-                                      child: Text(
-                                          model.species == "Human"
-                                              ? "Человек"
-                                              : "Животное",
-                                          style:
-                                              TextThemes.namePersonTextStyle))
-                                ]),
-                                SizedBox(height: 20),
-                                enterWidget("Место рождения", "Земля C-137"),
-                                SizedBox(
-                                  height: 16,
+                                const SizedBox(
+                                  height: 90,
                                 ),
-                                enterWidget("Местоположение",
-                                    "Земля (Измерение подменны)"),
+                                Text(model.name,
+                                    style: TextThemes.tittlTextStyle),
+                                const SizedBox(height: 4),
+                                Text(
+                                  model.status == "Alive" ? "ЖИВОЙ" : "МЕРТВЫЙ",
+                                  style: model.status == "Alive"
+                                      ? TextThemes.statusTextSttleRed.copyWith(
+                                          color: ColorPalette.greenColor,
+                                        )
+                                      : TextThemes.statusTextSttleRed,
+                                ),
+                                const SizedBox(
+                                  height: 36,
+                                ),
+                                PersonAboutWidget(model: model),
+                                LineWidget(),
+                                Episodes(),
                               ],
-                            )),
-                        Container(
-                          height: 1,
-                          margin: EdgeInsets.only(top: 36, bottom: 45),
-                          color: ColorPalette.greyColor_1,
-                        ),
-                        Container(
-                          child: episodes(),
-                          padding: EdgeInsets.symmetric(horizontal: 16)
-                        ),
-                      ],
-                    ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      TopWidgetsView(
+                        imageUrl: model.image,
+                      ),
+                    ],
                   ),
                 ],
               ),
-              Container(
-                width: size.width,
-                height: 218,
-                color: ColorPalette.greyColor_1.withOpacity(0.65),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16, top: 54),
-                    child: Container(
-                        decoration: BoxDecoration(
-                          //color: ColorPalette.secondPrimary,
-                          borderRadius: BorderRadius.circular(100),
-                        ),
-                        height: 48,
-                        width: 48,
-                        child: FloatingActionButton(
-                          backgroundColor: ColorPalette.secondPrimary,
-                          child: Icon(Icons.arrow_back),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        )),
-                  ),
-                  SizedBox(height: 36),
-                  Center(
-                    child: Container(
-                        width: 146,
-                        height: 146,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            border: Border.all(
-                                width: 8, color: ColorPalette.darkBlue)),
-                        child: FittedBox(
-                            child: CircleAvatar(
-                          radius: 60,
-                          backgroundImage: NetworkImage(model.image),
-                        ))),
-                  )
-                ],
-              ),
-            ],
+            ),
           ),
-        ]),
-      ),
+          orElse: () {},
+        );
+      },
     );
   }
 }

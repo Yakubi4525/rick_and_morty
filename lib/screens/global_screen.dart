@@ -22,6 +22,7 @@ class _GlobalScreenState extends State<GlobalScreen> {
           return TapBarScreen();
           break;
         default:
+          return Container();
       }
     });
   }

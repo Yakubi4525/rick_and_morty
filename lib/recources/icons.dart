@@ -5,8 +5,8 @@ class MainIcons {
   static String get search => 'assets/svg_icons/search.svg';
   static String get persons => 'assets/svg_icons/persons.svg';
   static String get settings => 'assets/svg_icons/settings.svg';
-    static String get episode => 'assets/svg_icons/episode.svg';
-      static String get filter => 'assets/svg_icons/filter.svg';
+  static String get episode => 'assets/svg_icons/episode.svg';
+  static String get filter => 'assets/svg_icons/filter.svg';
 
 
 }
