@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty/screens/person_deail_screen/widgets/episode_list.dart';
-import 'package:rick_and_morty/theme/color_theme.dart';
 import 'package:rick_and_morty/theme/text_theme.dart';
 
 class Episodes extends StatelessWidget {

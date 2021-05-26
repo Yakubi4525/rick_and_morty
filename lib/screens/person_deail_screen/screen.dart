@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rick_and_morty/recources/variables.dart';
 import 'package:rick_and_morty/screens/person_deail_screen/bloc/person_screen_bloc.dart';
-import 'package:rick_and_morty/screens/person_deail_screen/widgets/enter.dart';
 import 'package:rick_and_morty/screens/person_deail_screen/widgets/episode.dart';
 import 'package:rick_and_morty/screens/person_deail_screen/widgets/line_widget.dart';
 import 'package:rick_and_morty/screens/person_deail_screen/widgets/person_about_widget.dart';
@@ -46,11 +44,6 @@ class PersonScreen extends StatelessWidget {
                           ),
                           Container(
                             width: size.width,
-                            height: 218,
-                            color: ColorPalette.greyColor_1.withOpacity(0.65),
-                          ),
-                          Container(
-                            width: size.width,
                             color: ColorPalette.darkBlue,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -79,6 +72,11 @@ class PersonScreen extends StatelessWidget {
                             ),
                           ),
                         ],
+                      ),
+                      Container(
+                        width: size.width,
+                        height: 218,
+                        color: ColorPalette.greyColor_1.withOpacity(0.65),
                       ),
                       TopWidgetsView(
                         imageUrl: model.image,

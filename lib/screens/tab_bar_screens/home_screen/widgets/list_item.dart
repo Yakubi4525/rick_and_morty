@@ -18,28 +18,18 @@ class ListItem extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 24),
           child: GestureDetector(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => BlocProvider(
-                    create: (context) => PersonScreenBloc()
-                      ..add(
-                        PersonScreenEvent.initalEvent(),
-                      ),
-                    child: PersonScreen(
-                      model: model,
-                    ),
-                  ),
-                ),
+              Navigator.of(context).push(
+                _createRoute(model: model),
               );
             },
             child: Row(
               children: [
                 Container(
-                    child: CircleAvatar(
-                  radius: 37,
-                  backgroundImage: NetworkImage(model.image),
-                )),
+                  child: CircleAvatar(
+                    radius: 37,
+                    backgroundImage: NetworkImage(model.image),
+                  ),
+                ),
                 const SizedBox(
                   width: 18,
                 ),
@@ -48,7 +38,8 @@ class ListItem extends StatelessWidget {
                   children: [
                     Text(model.status == "Alive" ? "ЖИВОЙ" : "МЕРТВЫЙ",
                         style: model.status == "Alive"
-                            ? TextThemes.statusTextSttleRed.copyWith(color: ColorPalette.greenColor)
+                            ? TextThemes.statusTextSttleRed
+                                .copyWith(color: ColorPalette.greenColor)
                             : TextThemes.statusTextSttleRed),
                     Text('${model.name}',
                         overflow: TextOverflow.ellipsis,
@@ -65,4 +56,32 @@ class ListItem extends StatelessWidget {
       ],
     );
   }
+}
+///Function for animation of transition from vertical to horizontal.e 
+Route _createRoute({PersonModel model}) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => BlocProvider(
+      create: (context) => PersonScreenBloc()
+        ..add(
+          PersonScreenEvent.initalEvent(),
+        ),
+      child: PersonScreen(
+        model: model,
+      ),
+    ),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = Offset(0.0, 1.0);
+      var end = Offset.zero;
+      var curve = Curves.ease;
+
+      var tween = Tween(begin: begin, end: end).chain(
+        CurveTween(curve: curve),
+      );
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
 }
